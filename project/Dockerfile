@@ -4,6 +4,7 @@ FROM golang:1.8
 WORKDIR /go/src/app
 COPY . .
 
+#may require "sudo" for the apt-get portion
 RUN \
 go-wrapper download && \
 go-wrapper install && \
