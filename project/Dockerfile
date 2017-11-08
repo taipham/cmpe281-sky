@@ -21,3 +21,6 @@ CMD ["go-wrapper", "run"]
 # 28017 for http
 EXPOSE 27017
 EXPOSE 28017
+
+#for go use
+EXPOSE 8080
