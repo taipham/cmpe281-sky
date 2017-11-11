@@ -15,7 +15,7 @@ db.usersInfo.insert(
     ],
     "favor" : [],
     "lastVist" : ISODate("2017-01-28T09:40:50.615Z")
-}
+},
 
 /* 2 */
 {
@@ -53,7 +53,7 @@ db.usersInfo.insert(
         }
     ],
     "lastVist" : ISODate("2017-01-28T09:40:50.615Z")
-}
+},
 
 /* 3 */
 {
@@ -92,7 +92,7 @@ db.usersInfo.insert(
         }
     ],
     "lastVist" : ISODate("2017-11-28T09:40:50.615Z")
-}
+},
 
 /* 4 */
 {
@@ -131,7 +131,7 @@ db.usersInfo.insert(
         }
     ],
     "lastVist" : ISODate("2017-11-01T19:40:50.615Z")
-}
+},
 
 /* 5 */
 {
@@ -165,7 +165,7 @@ db.usersInfo.insert(
         }
     ],
     "lastVist" : ISODate("2017-09-11T19:40:50.615Z")
-}
+},
 
 /* 6 */
 {
@@ -213,7 +213,7 @@ db.usersInfo.insert(
         }
     ],
     "lastVist" : ISODate("2017-10-12T19:40:50.615Z")
-}
+},
 
 /* 7 */
 {
@@ -263,7 +263,7 @@ db.usersInfo.insert(
         }
     ],
     "lastVist" : ISODate("2017-10-12T19:40:50.615Z")
-}
+},
 
 /* 8 */
 {
@@ -315,7 +315,7 @@ db.usersInfo.insert(
         }
     ],
     "lastVist" : ISODate("2017-10-20T19:40:50.615Z")
-}
+},
 
 /* 9 */
 {
@@ -361,7 +361,7 @@ db.usersInfo.insert(
         }
     ],
     "lastVist" : ISODate("2017-07-20T19:40:50.615Z")
-}
+},
 
 /* 10 */
 {
@@ -407,7 +407,7 @@ db.usersInfo.insert(
         }
     ],
     "lastVist" : ISODate("2017-07-20T19:40:50.615Z")
-}
+},
 
 /* 11 */
 {
@@ -460,7 +460,7 @@ db.usersInfo.insert(
         }
     ],
     "lastVist" : ISODate("2017-02-20T19:40:50.615Z")
-}
+},
 
 /* 12 */
 {
@@ -476,7 +476,7 @@ db.usersInfo.insert(
     ],
     "favor" : [],
     "lastVist" : ISODate("2010-01-28T09:40:50.615Z")
-}
+},
 
 /* 13 */
 {
@@ -493,7 +493,7 @@ db.usersInfo.insert(
     ],
     "favor" : [],
     "lastVist" : ISODate("2010-11-28T09:40:50.615Z")
-}
+},
 
 /* 14 */
 {
@@ -511,7 +511,7 @@ db.usersInfo.insert(
     ],
     "favor" : [],
     "lastVist" : ISODate("2012-11-28T09:40:50.615Z")
-}
+},
 
 /* 15 */
 {
@@ -525,7 +525,7 @@ db.usersInfo.insert(
     "music_tags" : [],
     "favor" : [],
     "lastVist" : ISODate("2016-11-28T09:40:50.615Z")
-}
+},
 
 /* 16 */
 {
