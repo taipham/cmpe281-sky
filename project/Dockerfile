@@ -27,4 +27,5 @@ CMD ["go-wrapper", "run"]
 EXPOSE 27017
 EXPOSE 28017
 
+#for go use
 EXPOSE 8080
