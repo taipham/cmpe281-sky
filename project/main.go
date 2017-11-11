@@ -9,7 +9,7 @@ import (
         "github.com/gorilla/mux"
 )
 
-const landingPageHandler = `
+const landingPage = `
 <h1>Login</h1>
 <form method="post" action="/login">
    <label for="name"> Username</label>
