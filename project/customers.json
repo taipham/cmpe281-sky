@@ -1,0 +1,32 @@
+{
+	first_name: “John”,
+	last_name:”Doe”,
+	address : {
+			street:”4 main st.”,
+			city:”Boston”
+	}
+	age: 23,
+	music_type: [” country”,”jazz”]
+}
+
+{
+	first_name: “Mary”,
+	last_name:”Ann”,
+	address : {
+			street:”2 main st.”,
+			city:”San Jose”
+	}
+	age: 35,
+	music_type: [” country”,”r&b”,”blues”]
+}
+
+{
+	first_name: “William”,
+	last_name:”Kingsman”,
+	address : {
+			street:”4 market st.”,
+			city:”NY”
+	}
+	age: 19,
+	music_type: [” country”,”r&b”,”blues”]
+}
