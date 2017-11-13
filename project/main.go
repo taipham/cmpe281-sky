@@ -7,6 +7,8 @@ import (
         "gopkg.in/mgo.v2"
         "gopkg.in/mgo.v2/bson"
         "github.com/gorilla/mux"
+        // to utilize users.go with alias user
+	user "cmpe281-sky/project/users.go"
 )
 
 const landingPage = `
