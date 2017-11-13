@@ -6,6 +6,8 @@ import (
 	    "log"
         "gopkg.in/mgo.v2"
         "gopkg.in/mgo.v2/bson"
+	// import mongodb package with alias mongo
+	mongo "/app/data/db"
 )
 
 type user struct {
