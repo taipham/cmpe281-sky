@@ -15,9 +15,9 @@ go get gopkg.in/mgo.v2
 #defining mountable directories
 VOLUME ["/app/data/db"]
 
-#moved Melody's Dockerfile content into the project/Dockerfile
-COPY customers.json /customers.json
-CMD mongoimport --host mongodb --db exampleDb --collection contacts --type json --file /customers.json --jsonArray
+#creation of user database through json file
+COPY userInfo.json /userInfo.json
+CMD mongoimport --host mongodb --db userDb --collection Contacts --type json --file /userInfo.json --jsonArray
 
 CMD ["go-wrapper", "run"]
 
