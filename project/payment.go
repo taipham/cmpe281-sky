@@ -1,10 +1,23 @@
-// Source : https://pythonprogramming.net/go/introduction-go-language-programming-tutorial/
+// Reference : https://pythonprogramming.net/go/introduction-go-language-programming-tutorial/
 
 package main
 
 import ("fmt" 
         "net/http"
-	"html/template")
+	"io/ioutil"
+	"html/template"
+	"encoding/xml")
+
+type Sitemapindex struct{
+	Titles []string `xml:"url>news>title"`
+	Keywords []string `xml:"url>news>keywords"`
+	Location []string `xml:"url>loc"` 
+}
+
+type NewsMap struct {
+	Keyword string
+	Location string
+}
 
 type NewsAggPage struct {
 	Title string
