@@ -11,6 +11,8 @@ import (
 	mongo "/app/data/db"
         // to utilize users.go with alias user
 	user "cmpe281-sky/project/users.go"
+	//to utilize music.go with alias music
+        music "cmpe281-sky/project/music.go"
 )
 
 const landingPage = `
@@ -34,6 +36,9 @@ const homePage = `
 <h1>Home</h1>
 <hr>
 <small>User: %s</small>
+<form method="post" action="/store">
+   <button type="submit">Store</button>
+</form>
 <form method="post" action="/logout">
    <button type="submit">Logout</button>
 </form>   
