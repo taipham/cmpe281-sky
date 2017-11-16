@@ -7,6 +7,8 @@ import (
         "gopkg.in/mgo.v2"
         "gopkg.in/mgo.v2/bson"
         "github.com/gorilla/mux"
+	// import mongodb package with alias mongo
+	mongo "/app/data/db"
         // to utilize users.go with alias user
 	user "cmpe281-sky/project/users.go"
 )
