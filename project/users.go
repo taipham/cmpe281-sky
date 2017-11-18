@@ -4,11 +4,16 @@ package main
 import (
         "fmt"
 	    "log"
+	    "encoding/json"
+	    "net/http"
+
+	    "goji.io"
+    	"goji.io/pat"
         "gopkg.in/mgo.v2"
         "gopkg.in/mgo.v2/bson"
 )
 
-type user struct {
+type User struct {
 	Id 			bson.ObjectId 	`json:"id" bson:"_id"`
 	First 		string        	`json:"first_name" bson:"first_name"`
 	Last   		string        	`json:"last_name" bson:"last_name"`
@@ -32,15 +37,195 @@ func handleRead(w http.ResponseWriter, r *http.Request) {
   }
 }
 
+func ensureIndex(s *mgo.Session) {  
+    session := s.Copy()
+    defer session.Close()
+
+    c := session.DB("cmpe281").C("users")
+
+    index := mgo.Index{
+        Key:        []string{"ID"},
+        Unique:     true,
+        DropDups:   true,
+        Background: true,
+        Sparse:     true,
+    }
+    err := c.EnsureIndex(index)
+    if err != nil {
+        panic(err)
+    }
+}
+
+func allUsers(s *mgo.Session) func(w http.ResponseWriter, r *http.Request) {  
+    return func(w http.ResponseWriter, r *http.Request) {
+        session := s.Copy()
+        defer session.Close()
+
+        c := session.DB("cmpe281").C("users")
+
+        var users []User
+        err := c.Find(bson.M{}).All(&users)
+        if err != nil {
+            ErrorWithJSON(w, "Database error", http.StatusInternalServerError)
+            log.Println("Failed get all users: ", err)
+            return
+        }
+
+        respBody, err := json.MarshalIndent(users, "", "  ")
+        if err != nil {
+            log.Fatal(err)
+        }
+
+        ResponseWithJSON(w, respBody, http.StatusOK)
+    }
+}
+
+func addUser(s *mgo.Session) func(w http.ResponseWriter, r *http.Request) {  
+    return func(w http.ResponseWriter, r *http.Request) {
+        session := s.Copy()
+        defer session.Close()
+
+        var user User
+        decoder := json.NewDecoder(r.Body)
+        err := decoder.Decode(&user)
+        if err != nil {
+            ErrorWithJSON(w, "Incorrect body", http.StatusBadRequest)
+            return
+        }
+
+        c := session.DB("cmpe281").C("users")
+
+        err = c.Insert(user)
+        if err != nil {
+            if mgo.IsDup(err) {
+                ErrorWithJSON(w, "Book with this id already exists", http.StatusBadRequest)
+                return
+            }
+
+            ErrorWithJSON(w, "Database error", http.StatusInternalServerError)
+            log.Println("Failed insert user: ", err)
+            return
+        }
+
+        w.Header().Set("Content-Type", "application/json")
+        w.Header().Set("Location", r.URL.Path+"/"+user.id)
+        w.WriteHeader(http.StatusCreated)
+    }
+}
+
+func userById(s *mgo.Session) func(w http.ResponseWriter, r *http.Request) {  
+    return func(w http.ResponseWriter, r *http.Request) {
+        session := s.Copy()
+        defer session.Close()
+
+        id := pat.Param(r, "id")
+
+        c := session.DB("cmpe281").C("users")
+
+        var user User
+        err := c.Find(bson.M{"Id": id}).One(&user)
+        if err != nil {
+            ErrorWithJSON(w, "Database error", http.StatusInternalServerError)
+            log.Println("Failed find user: ", err)
+            return
+        }
+
+        if user.id == "" {
+            ErrorWithJSON(w, "User not found", http.StatusNotFound)
+            return
+        }
+
+        respBody, err := json.MarshalIndent(user, "", "  ")
+        if err != nil {
+            log.Fatal(err)
+        }
+
+        ResponseWithJSON(w, respBody, http.StatusOK)
+    }
+}
+
+func updateUser(s *mgo.Session) func(w http.ResponseWriter, r *http.Request) {  
+    return func(w http.ResponseWriter, r *http.Request) {
+        session := s.Copy()
+        defer session.Close()
+
+        isbn := pat.Param(r, "id")
+
+        var user User
+        decoder := json.NewDecoder(r.Body)
+        err := decoder.Decode(&user)
+        if err != nil {
+            ErrorWithJSON(w, "Incorrect body", http.StatusBadRequest)
+            return
+        }
+
+        c := session.DB("cmpe281").C("users")
+
+        err = c.Update(bson.M{"Id": id}, &user)
+        if err != nil {
+            switch err {
+            default:
+                ErrorWithJSON(w, "Database error", http.StatusInternalServerError)
+                log.Println("Failed update user: ", err)
+                return
+            case mgo.ErrNotFound:
+                ErrorWithJSON(w, "User not found", http.StatusNotFound)
+                return
+            }
+        }
+
+        w.WriteHeader(http.StatusNoContent)
+    }
+}
+
+func deleteUser(s *mgo.Session) func(w http.ResponseWriter, r *http.Request) {  
+    return func(w http.ResponseWriter, r *http.Request) {
+        session := s.Copy()
+        defer session.Close()
+
+        isbn := pat.Param(r, "id")
+
+        c := session.DB("cmpe281").C("users")
+
+        err := c.Remove(bson.M{"Id": id})
+        if err != nil {
+            switch err {
+            default:
+                ErrorWithJSON(w, "Database error", http.StatusInternalServerError)
+                log.Println("Failed delete user: ", err)
+                return
+            case mgo.ErrNotFound:
+                ErrorWithJSON(w, "User not found", http.StatusNotFound)
+                return
+            }
+        }
+
+        w.WriteHeader(http.StatusNoContent)
+    }
+}
+
+var route = mux.NewRouter()
+
 func main() {
-	// connect to the database
-	db, err := mgo.Dial("localhost")
-	if err != nil {
-	log.Fatal("cannot dial mongo", err)
-	}
-	defer db.Close() // clean up when we’re done
-	// Adapt our handle function using withDB
-	h := Adapt(http.HandlerFunc(handle), withDB(db))
+	session, err := mgo.Dial("localhost")
+    if err != nil {
+        panic(err)
+    }
+    defer session.Close()
+
+    session.SetMode(mgo.Monotonic, true)
+    ensureIndex(session)
+
+	mux := goji.NewMux()
+	mux.HandleFunc(pat.Get("/users"), allUsers(session))
+	mux.HandleFunc(pat.Post("/users"), addUser(session))
+    mux.HandleFunc(pat.Get("/users/id"), userById(session))
+    mux.HandleFunc(pat.Put("/users/id"), updateUser(session))
+    mux.HandleFunc(pat.Delete("/users/id"), deleteUser(session))
+	//route.HandleFunc("/", landingPageHandler)
+	//route.HandleFunc("/listAll", listAllUserHandler)
+   
+
 	// add the handler
 	http.Handle("/comments", context.ClearHandler(h))
 	// start the server
