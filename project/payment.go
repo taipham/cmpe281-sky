@@ -5,7 +5,7 @@ package main
 import ("fmt" 
         "net/http"
 	"io/ioutil"
-	"html/template"
+	"html/templete"
 	"encoding/xml")
 
 type Sitemapindex struct{
@@ -19,16 +19,25 @@ type NewsMap struct {
 	Location string
 }
 
-type NewsAggPage struct {
+type NewsPaymentPage struct {
 	Title string
 	News string
 }
+
 func indexHandler(w http.ResponseWriter, r * http.Request) {
     fmt.Fprintf(w, "<h1> Payment page </h1>")
 }
 
 func PaymentHandler(w http.ResponseWriter, r * http.Request) {
-    p := NewsAggPage{Title:"Payment Process", News :"Shopping cart"}   
+    var s Sitemapindex
+    var n News
+    resp _ := http.Get("https://github.com/nguyensjsu/cmpe281-sky/tree/master")
+    bytes, _ := ioutil.ReadAll(resp.Body)
+    xml.Unmarshal(bytes, &s)
+    news_map := make(map[string]NewsMap)
+
+
+    p := NewsPaymentPage{Title:"Payment Process", News :"Shopping cart"}   
     temp, _ := template.ParseFiles("paymentui.html")
     temp.Execute(w, p)
 }
