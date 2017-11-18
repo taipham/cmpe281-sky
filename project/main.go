@@ -10,9 +10,9 @@ import (
 	// import mongodb package with alias mongo
 	mongo "/app/data/db"
         // to utilize users.go with alias user
-	user "cmpe281-sky/project/users.go"
+	user "github.com/nguyensjsu/cmpe281-sky/blob/project/users.go"
 	//to utilize music.go with alias music
-        music "cmpe281-sky/project/music.go"
+        music "github.com/nguyensjsu/cmpe281-sky/blob/project/music.go"
 )
 
 const landingPage = `
