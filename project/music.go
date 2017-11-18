@@ -2,8 +2,8 @@ package main
 
 import (
 
-   hq "cmpe281-sky/project/main.go"
-   pay "cmpe281-sky/project/payment.go"
+   hq "github.com/nguyensjsu/cmpe281-sky/blob/project/main.go"
+   pay "github.com/nguyensjsu/cmpe281-sky/blob/project/payment.go"
 
 )
 
