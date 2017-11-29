@@ -218,7 +218,7 @@ func deleteUser(s *mgo.Session) func(w http.ResponseWriter, r *http.Request) {
 
 
 func main() {
-	session, err := mgo.Dial("localhost")
+	session, err := mgo.Dial("db")
     if err != nil {
         panic(err)
     }
@@ -240,6 +240,6 @@ func main() {
 	// add the handler
 	//http.Handle("/comments", context.ClearHandler(h))
 	// start the server
-	http.ListenAndServe("localhost:8080", mux)
+	http.ListenAndServe("0.0.0.0:8080", mux)
 	
 }
