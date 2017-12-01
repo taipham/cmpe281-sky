@@ -3,14 +3,14 @@ services:
 
   payments:
     build: .
-    image: payments
+    image: payment
     container_name: sky-payments
     depends_on:
       - db
     links:
       - db
     ports:
-      - "9090:9090"
+      - "8080:8080"
     environment:
       VIRTUAL_HOST: payments.local
 
