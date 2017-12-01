@@ -1,23 +1,23 @@
 version: '2'
 services:
 
-  users:
-    build: ./Payment
-    image: project/Payment
+  payments:
+    build: .
+    image: payments
     container_name: sky-payments
     depends_on:
       - db
     links:
       - db
     ports:
-      - "8080:8080"
+      - "9090:9090"
     environment:
       VIRTUAL_HOST: payments.local
 
   db:
     image: mongo:latest
-    container_name: sky-db
+    container_name: sky-payment-db
     ports:
-      - "27017:27017"
+      - "27018:27018"
     volumes:
       - ./backup:/backup:rw
