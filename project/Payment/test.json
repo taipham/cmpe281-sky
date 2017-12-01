@@ -3,9 +3,10 @@
     "first_name":   "Hoang",
     "last_name": 	"Nguyen",
     "user_name":   "hoang1",
+    "age": 30,
     "address":		"10 Green Dr, San Jose CA 95192",
     "email":        "hoang123@gmail.com",
     "credit_card_number": "1111 2222 3333 4444",
-    "security_code": "123",
+    "security_code": 123,
     "expiration_date": "11/11/2019"
 }
