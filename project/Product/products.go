@@ -15,7 +15,7 @@ import (
 
 type User struct {
 	id 			string 	        `json:"id"` 
-	songsTitle 	string        	`json:"song_title"` 
+	songsTitle 	string        	`json:"songsTitle"` 
 	singer  	string        	`json:"singer"` 
 	price    	string			`json:"price"` 			
 }
