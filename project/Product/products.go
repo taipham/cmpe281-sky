@@ -1,4 +1,4 @@
-// Payment handling
+// Product handling
 package main
 
 import (
@@ -15,9 +15,9 @@ import (
 
 type User struct {
 	id 			string 	        `json:"id"` 
-	songsTitle 	string        	`json:"songsTitle"` 
-	singer  	string        	`json:"singer"` 
-	price    	string			`json:"price"` 			
+	SongsTitle 		string        	`json:"songs_title"` 
+	Singer   		string        	`json:"singer"` 
+	Price	string			`json:"price"` 			
 }
 
 func ErrorWithJSON(w http.ResponseWriter, message string, code int) {  

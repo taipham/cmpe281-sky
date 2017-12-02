@@ -3,7 +3,7 @@ services:
 
   products:
     build: .
-    image: products
+    image: product
     container_name: sky-products
     depends_on:
       - db

@@ -7,13 +7,13 @@ RUN go get goji.io
 RUN go get github.com/gorilla/mux
 
 # copy the local package files to the container workspace
-ADD . /go/src/github.com/hoang1127/project/products
+ADD . /go/src/github.com/melodyxman/project/products
 
 # Setting up working directory
-WORKDIR /go/src/github.com/hoang1127/project/products
+WORKDIR /go/src/github.com/melodyxman/project/products
 
 # Build the users command inside the container.
-RUN go install github.com/hoang1127/project/products
+RUN go install github.com/melodyxman/project/products
 
 # Run the users microservice when the container starts.
 ENTRYPOINT /go/bin/products
